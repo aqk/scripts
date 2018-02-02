@@ -1,0 +1,25 @@
+#!/bin/bash
+
+scripts_dir=${HOME}/scripts
+
+if [ $# -eq 0 ]
+  then
+    echo "Usage: $0 script_name"
+	exit 1
+fi
+
+script_name="$1"
+sn=${scripts_dir}/${script_name}
+
+if [ ! -e ${sn} ]; then
+	cp ${scripts_dir}/template.sh ${sn}
+fi
+
+if [ -z "$EDITOR" ] ; then
+	EDITOR=vi
+fi
+
+$EDITOR ${sn}
+
+chmod +x ${sn}
+
