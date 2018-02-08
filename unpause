@@ -1,0 +1,10 @@
+#!/bin/sh
+
+
+if [ $# -eq 0 ]
+  then
+    echo "Usage: $0 process-name-to-pause"
+    exit 1
+fi
+
+ps -ef |grep $1 | awk '{print $2}' | xargs kill -SIGCONT

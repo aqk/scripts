@@ -1,0 +1,10 @@
+#!/bin/sh
+
+
+if [ $# -eq 0 ]
+  then
+    echo "Usage: $0 process-name-to-pause"
+fi
+
+# can grep -v grep if $1 != grep
+ps -ef |grep $1 | awk '{print $2}' | xargs kill -SIGSTOP
