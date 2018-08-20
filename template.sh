@@ -10,3 +10,12 @@ fi
 my_path=`which $0 `
 dir_script_in=`dirname ${my_path}`
 
+while [ $# -gt 0 ]; do
+    case $1 in
+        -x)
+            set -x
+            ;;
+    esac
+done
+
+###### Script starts here
