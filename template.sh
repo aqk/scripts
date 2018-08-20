@@ -16,6 +16,7 @@ while [ $# -gt 0 ]; do
             set -x
             ;;
     esac
+    shift
 done
 
 ###### Script starts here
