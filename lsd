@@ -1,3 +1,37 @@
 #!/bin/bash
 
-ls -F "$@"| grep /
+# List only directories at depth one from specified directories
+
+# Overall idea: ls -F "$@"| grep /
+# Example: lsd /etc /usr
+# Output: /etc/ssh /etc/ssl /usr/bin /usr/include /usr/lib ...
+
+if [ $# -eq 0 ]
+  then
+    echo "Usage: $0 <directories>"
+    exit 1
+fi
+
+POSITIONAL=()
+while [[ $# -gt 0 ]]
+do
+    case $1 in
+    -x)
+        set -x
+        shift
+        ;;
+    *)  # unknown option - save it in an array for later
+        POSITIONAL+=("$1")
+        shift
+        ;;
+    esac
+done
+set -- "${POSITIONAL[@]}" # restore positional parameters
+
+
+for path in $@
+do
+    # TODO: There may be an issue following links
+    find ${path}/* -maxdepth 0 -type dl -print
+    #find ${path} -maxdepth 1 -type dl -type dl -print
+done
